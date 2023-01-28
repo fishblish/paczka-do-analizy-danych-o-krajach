@@ -1,13 +1,22 @@
+import argparse
+import pandas as pd
+#from morse import morse
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi pycharm!!, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+parser = argparse.ArgumentParser()
+parser.add_argument("sciezka_dane1", type=str, nargs="?", default='/home/julia/PycharmProjects/projekt-zaliczeniowy/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_4751562/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_4751562.csv', help="Ścieżka do pierwszych danych")
+parser.add_argument("sciezka_dane2", type=str, nargs="?", default='/home/julia/PycharmProjects/projekt-zaliczeniowy/API_SP.POP.TOTL_DS2_en_csv_v2_4751604/API_SP.POP.TOTL_DS2_en_csv_v2_4751604.csv', help="Ścieżka do drugich danych")
+parser.add_argument("sciezka_dane3", type=str, nargs="?", default='/home/julia/PycharmProjects/projekt-zaliczeniowy/co2-fossil-by-nation_zip/data/fossil-fuel-co2-emissions-by-nation_csv.csv', help="Ścieżka do trzecich danych")
 
+#parser.add_argument("ścieżka_dane2", help="Ścieżka do drugich danych")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+args = parser.parse_args()
 
+print(args.sciezka_dane1)
+dane1 = pd.read_csv(args.sciezka_dane1, skiprows=3)
+print(dane1.head(5))
+dane2 = pd.read_csv(args.sciezka_dane2, skiprows=3)
+print(dane2.head(5))
+dane3 = pd.read_csv(args.sciezka_dane3, skiprows=0)
+print(dane3.head(5))
 
-os.getcwd()
