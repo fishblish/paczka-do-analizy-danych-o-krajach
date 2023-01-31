@@ -1,4 +1,5 @@
 import pandas as pd
+pd.options.mode.chained_assignment = None
 
 sciezka_bazowa='/home/students/mat/j/jb417512/python/'
 #sciezka_bazowa='/home/julia/PycharmProjects/projekt-zaliczeniowy/'
@@ -65,5 +66,16 @@ populacja=populacja.iloc[:, a]
 print(populacja)
 
 co2=co2[(co2.Year>=rok_start) & (co2.Year<=rok_koniec)]
+print(list(co2.columns))
+
+#zmienianie nazw krajów na wielkie litery
+for index, row in gdp.iterrows():
+    gdp['Country Name'].iloc[index]=gdp['Country Name'].iloc[index].upper()
+print(list(gdp['Country Name']))
+
+for index, row in populacja.iterrows():
+    populacja['Country Name'].iloc[index]=populacja['Country Name'].iloc[index].upper()
+print(list(populacja['Country Name']))
+
 
 
