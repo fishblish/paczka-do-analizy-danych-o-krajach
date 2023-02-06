@@ -78,4 +78,16 @@ for index, row in populacja.iterrows():
 print(list(populacja['Country Name']))
 
 
+print('\nTUTAJ\n')
+co2['nowe'] = np.ones(co2.shape[0])
+
+for rok in [int(s) for s in gdp.columns if s.isnumeric()]:
+    for index, row in gdp.iterrows():
+        print(row['Country Name'], rok)
+        co2[(co2.Year==rok) & (co2.Country==row['Country Name'])].nowe=2
+        print(co2[(co2.Year==rok) & (co2.Country==row['Country Name'])].nowe)
+print('cos')
+#print(co2[co2.Year==1960])
+#print(co2.loc[(co2.Year==1960) & (co2.Country=='URUGUAY')])
+
 
