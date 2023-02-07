@@ -86,8 +86,23 @@ kraje2.columns=['kraje2']
 print(kraje1, '\n\n')
 kraje1.kraje1=[re.sub('.\(.*\)', '', i) for i in kraje1.kraje1]
 kraje2.kraje2=[re.sub('.\(.*\)', '', i) for i in kraje2.kraje2]
+kraje2.kraje2=[re.sub('VIET NAM', 'VIETNAM', i) for i in kraje2.kraje2]
+kraje1.kraje1=[re.sub(',.*', '', i) for i in kraje1.kraje1]
+kraje2.kraje2=[re.sub('.\(.*\)', '', i) for i in kraje2.kraje2]
+kraje1.kraje1=[re.sub('&', 'AND', i) for i in kraje1.kraje1]
+kraje2.kraje2=[re.sub('&', 'AND', i) for i in kraje2.kraje2]
+kraje1=kraje1.sort_values('kraje1')
+kraje2=kraje2.sort_values('kraje2')
+print('')
+kraje_tabela=kraje1.merge(kraje2, left_on='kraje1', right_on='kraje2', how='outer')
+#352, 349 po usunieciu nawiasow w kraje1, 342 po zmianie wietnam i usunięciu rzeczy po przecinku, 338 po zamianie and
 
-kraje_tabela=kraje1.merge(kraje2, left_on='kraje1', right_on='kraje2', how='outer') #352, 349 po usunieciu nawiasow w kraje1
+#co się powtarza po zmianach
+print(pd.concat(g for _, g in kraje1.groupby("kraje1") if len(g) > 1))
+#Congo i Korea
+print(pd.concat(g for _, g in kraje2.groupby("kraje2") if len(g) > 1))
+#Yugoslavia
+
 #co2['nowe'] = np.ones(co2.shape[0])
 
 #for rok in [int(s) for s in gdp.columns if s.isnumeric()]:
