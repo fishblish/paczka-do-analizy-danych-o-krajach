@@ -115,7 +115,7 @@ populacja_melt.columns=['Country', 'Year', 'Population']
 
 merge1=pd.merge(gdp_melt,populacja_melt, how='outer')
 merge1.Year=[int(i) for i in merge1.Year]
-merged_all=pd.merge(merge1,co2,how='outer')
+merged=pd.merge(merge1,co2,how='outer')
 #co2['nowe'] = np.ones(co2.shape[0])
 
 #for rok in [int(s) for s in gdp.columns if s.isnumeric()]:
@@ -129,3 +129,33 @@ print('cos')
 #print(co2[co2.Year==1960])
 #print(co2.loc[(co2.Year==1960) & (co2.Country=='URUGUAY')])
 
+#PIERWSZE ZADANIE
+max_co2=merged.groupby(['Year'], sort=False)['Per Capita'].nlargest(5).droplevel(1)
+#max_co2=pd.DataFrame(max_co2)
+max_co2=max_co2.to_frame().reset_index()
+#tab=pd.merge(max_co2)
+max_co2=pd.merge(max_co2, merged, how='inner')
+print(max_co2.columns)
+max_co2=max_co2[['Year', 'Country', 'Per Capita', 'Total']]
+
+#DRUGIE ZADANIE
+merged['GDP Per Capita'] = merged.GDP/merged.Population
+max_gdp=merged.groupby(['Year'], sort=False)['GDP Per Capita'].nlargest(5).droplevel(1)
+max_gdp=max_gdp.to_frame().reset_index()
+max_gdp=pd.merge(max_gdp, merged, how='inner')
+print(max_gdp.columns)
+max_gdp=max_gdp[['Year', 'Country', 'GDP', 'GDP Per Capita']]
+
+#TRZECIE ZADANIE
+rok_koniec10=rok_koniec-10
+tab=merged[(merged.Year==rok_koniec10) | (merged.Year==rok_koniec)][['Year', 'Country', 'Per Capita']]
+tab=tab.pivot(index='Country', columns='Year')['Per Capita']
+tab = tab.reset_index()
+print('tutajjjjj', tab.columns)
+tab.columns=[str(i) for i in tab.columns]
+tab['Difference'] = tab.iloc[:,1] - tab.iloc[:,2]
+max=max(tab.Difference)
+min=min(tab.Difference)
+wynik_max=tab[tab.Difference==max]
+wynik_min=tab[tab.Difference==min]
+print(wynik_min, wynik_max)
