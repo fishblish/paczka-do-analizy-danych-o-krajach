@@ -99,10 +99,23 @@ kraje_tabela=kraje1.merge(kraje2, left_on='kraje1', right_on='kraje2', how='oute
 
 #co się powtarza po zmianach
 print(pd.concat(g for _, g in kraje1.groupby("kraje1") if len(g) > 1))
-#Congo i Korea
+#Congo i Korea (w kongo zamienić na kongo i demokratyczne kongo) z koreą tak samo
 print(pd.concat(g for _, g in kraje2.groupby("kraje2") if len(g) > 1))
-#Yugoslavia
+#Yugoslavia - zmieniła się w 1990 roku - ok
 
+#Decyzje projektowe:
+#-usunąć ZSRR
+#- połączyć Francję i Monako z Francją
+# z Czechosłowacji zrobić Czechy i SŁowację pół na pół
+print(gdp.columns)
+gdp_melt=pd.melt(gdp, id_vars=['Country Name'], value_vars=gdp.columns[4:])
+gdp_melt.columns=['Country', 'Year', 'GDP']
+populacja_melt=pd.melt(populacja, id_vars=['Country Name'], value_vars=gdp.columns[4:])
+populacja_melt.columns=['Country', 'Year', 'Population']
+
+merge1=pd.merge(gdp_melt,populacja_melt, how='outer')
+merge1.Year=[int(i) for i in merge1.Year]
+merged_all=pd.merge(merge1,co2,how='outer')
 #co2['nowe'] = np.ones(co2.shape[0])
 
 #for rok in [int(s) for s in gdp.columns if s.isnumeric()]:
@@ -110,6 +123,9 @@ print(pd.concat(g for _, g in kraje2.groupby("kraje2") if len(g) > 1))
 #        print(row['Country Name'], rok)
 #        co2[(co2.Year==rok) & (co2.Country==row['Country Name'])].nowe=2
 #        print(co2[(co2.Year==rok) & (co2.Country==row['Country Name'])].nowe)
+print(co2.dtypes)
+print(merge1.dtypes)
 print('cos')
 #print(co2[co2.Year==1960])
 #print(co2.loc[(co2.Year==1960) & (co2.Country=='URUGUAY')])
+
