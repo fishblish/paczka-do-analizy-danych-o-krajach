@@ -1,7 +1,10 @@
 import pandas as pd
+import numpy as np
+import re
+pd.options.mode.chained_assignment = None
 
-sciezka_bazowa='/home/students/mat/j/jb417512/python/'
-#sciezka_bazowa='/home/julia/PycharmProjects/projekt-zaliczeniowy/'
+#sciezka_bazowa='/home/students/mat/j/jb417512/python/'
+sciezka_bazowa='/home/julia/Documents/python/projekt/'
 sciezka_dane1 = sciezka_bazowa + 'API_NY.GDP.MKTP.CD_DS2_en_csv_v2_4751562/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_4751562.csv'
 sciezka_dane2 = sciezka_bazowa + 'API_SP.POP.TOTL_DS2_en_csv_v2_4751604/API_SP.POP.TOTL_DS2_en_csv_v2_4751604.csv'
 sciezka_dane3 = sciezka_bazowa + 'co2-fossil-by-nation_zip/data/fossil-fuel-co2-emissions-by-nation_csv.csv'
@@ -66,4 +69,32 @@ print(populacja)
 
 co2=co2[(co2.Year>=rok_start) & (co2.Year<=rok_koniec)]
 
+#zmienianie nazw krajów na wielkie litery
+for index, row in gdp.iterrows():
+    gdp['Country Name'].iloc[index]=gdp['Country Name'].iloc[index].upper()
+print(list(gdp['Country Name']))
 
+for index, row in populacja.iterrows():
+    populacja['Country Name'].iloc[index]=populacja['Country Name'].iloc[index].upper()
+print(list(populacja['Country Name']))
+
+print('\nTUTAJ\n')
+kraje1=pd.DataFrame(list(set(gdp['Country Name'].copy())))
+kraje1.columns=['kraje1']
+kraje2=pd.DataFrame(list(set(co2['Country'].copy())))
+kraje2.columns=['kraje2']
+print(kraje1, '\n\n')
+kraje1.kraje1=[re.sub('.\(.*\)', '', i) for i in kraje1.kraje1]
+kraje2.kraje2=[re.sub('.\(.*\)', '', i) for i in kraje2.kraje2]
+
+kraje_tabela=kraje1.merge(kraje2, left_on='kraje1', right_on='kraje2', how='outer') #352, 349 po usunieciu nawiasow w kraje1
+#co2['nowe'] = np.ones(co2.shape[0])
+
+#for rok in [int(s) for s in gdp.columns if s.isnumeric()]:
+#    for index, row in gdp.iterrows():
+#        print(row['Country Name'], rok)
+#        co2[(co2.Year==rok) & (co2.Country==row['Country Name'])].nowe=2
+#        print(co2[(co2.Year==rok) & (co2.Country==row['Country Name'])].nowe)
+print('cos')
+#print(co2[co2.Year==1960])
+#print(co2.loc[(co2.Year==1960) & (co2.Country=='URUGUAY')])

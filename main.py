@@ -1,9 +1,8 @@
 import argparse
 import pandas as pd
-#from morse import morse
 
-sciezka_bazowa='/home/students/mat/j/jb417512/python/'
-#sciezka_bazowa='/home/julia/PycharmProjects/projekt-zaliczeniowy/'
+#sciezka_bazowa='/home/students/mat/j/jb417512/python/'
+sciezka_bazowa='/home/julia/Documents/python/projekt/'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("sciezka_dane1", type=str, nargs="?", default= sciezka_bazowa + 'API_NY.GDP.MKTP.CD_DS2_en_csv_v2_4751562/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_4751562.csv', help="Ścieżka do pierwszych danych")
