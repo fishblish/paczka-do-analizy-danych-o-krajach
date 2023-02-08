@@ -48,11 +48,7 @@ def wstepna_obrobka_danych(gdp, populacja, co2, rok_start, rok_koniec):
 
     #zmienianie nazw krajów na wielkie litery
     gdp['Country Name']=[i.upper() for i in gdp['Country Name']]
-    gdp['Country Name']=[i.upper() for i in gdp['Country Name']]
-    for index, row in gdp.iterrows():
-        gdp['Country Name'].iloc[index]=gdp['Country Name'].iloc[index].upper()
-    for index, row in populacja.iterrows():
-        populacja['Country Name'].iloc[index]=populacja['Country Name'].iloc[index].upper()
+    populacja['Country Name']=[i.upper() for i in populacja['Country Name']]
 
     #poprawki w nazwach krajów
     co2['Country']=[re.sub('VIET NAM', 'VIETNAM', i) for i in co2['Country']]
