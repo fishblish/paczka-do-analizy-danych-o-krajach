@@ -1,8 +1,9 @@
 import setuptools
 
 setuptools.setup(
-    name='paczka_projekt',
+    name='package',
     author='Julia Bartczak',
-    packages=setuptools.find_packages(),
+    package_dir={"":"src"},
+    packages=setuptools.find_packages(where="./src"),
     install_requires=["pandas", "regex", "argparse"]
 )
