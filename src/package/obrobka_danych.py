@@ -47,6 +47,8 @@ def wstepna_obrobka_danych(gdp, populacja, co2, rok_start, rok_koniec):
     co2=co2[(co2.Year>=rok_start) & (co2.Year<=rok_koniec)]
 
     #zmienianie nazw krajów na wielkie litery
+    gdp['Country Name']=[i.upper() for i in gdp['Country Name']]
+    gdp['Country Name']=[i.upper() for i in gdp['Country Name']]
     for index, row in gdp.iterrows():
         gdp['Country Name'].iloc[index]=gdp['Country Name'].iloc[index].upper()
     for index, row in populacja.iterrows():
@@ -103,4 +105,4 @@ def differences(merged, rok_koniec):
     wynik_min=tab[tab.Difference==mini]
     print("\nWynik trzeciego zadania: najmniejsza różnica w emisji co2 w ciągu ostatnich 10 lat\n", wynik_min)
     print("\nWynik trzeciego zadania: największa różnica w emisji co2 w ciągu ostatnich 10 lat\n", wynik_max)
-    return [wynik_min, wynik_max]
+    return pd.concat([wynik_min, wynik_max]).reset_index(drop=True)
