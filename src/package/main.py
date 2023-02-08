@@ -1,6 +1,6 @@
 import argparse
 import pandas as pd
-from . import obrobka_danych as od
+import obrobka_danych as od
 
 #sciezka_bazowa='/home/students/mat/j/jb417512/python/'
 sciezka_bazowa='/home/julia/Documents/python/projekt/'
