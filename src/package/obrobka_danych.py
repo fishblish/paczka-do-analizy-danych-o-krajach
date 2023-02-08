@@ -168,4 +168,10 @@ def wybor_dat(rok_start, rok_koniec, start_user=0, end_user=0):
         print('Data startu późniejsza niż data końcowa.\nUstawienie domyślnego przedziału czasu: od', rok_start, 'do', rok_koniec)
         start_user=rok_start
         end_user=rok_koniec
+    if(start_user<rok_start):
+        print('Za wczesna data startowa, brak danych. Ustawienie domyślnej daty startowej', rok_start)
+        start_user=rok_start
+    if(end_user>rok_koniec):
+        print('Za późna data końcowa, brak danych. Ustawienie domyślnej daty końcowej', rok_koniec)
+        end_user=rok_koniec
     return [start_user, end_user]
