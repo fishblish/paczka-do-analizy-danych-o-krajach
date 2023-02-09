@@ -6,4 +6,4 @@ obrobka_danych.py - skrypt z funkcjami
 
 tests.py - testy dla wybranych funkcji
 
-Test
+Koniec
