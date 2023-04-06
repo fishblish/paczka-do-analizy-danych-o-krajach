@@ -1,3 +1,5 @@
+Instalowalna paczka służąca do obróki i analizy danych dotyczących populacji, emisji Co2 i PKB krajów.
+
 Informacje o projekcie:
 
 main.py - główny skrypt wywołujący analizy
